@@ -18,7 +18,7 @@ from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton, BotC
 from telegram.ext import CommandHandler, CallbackQueryHandler, CallbackContext, InlineQueryHandler
 
 from wserver import start_server_async
-from bot import bot, app, dispatcher, updater, botStartTime, IGNORE_PENDING_REQUESTS, IS_VPS, PORT, alive, web, OWNER_ID, AUTHORIZED_CHATS, LOGGER, TIMEZONE, rss_session, LOG_GROUP
+from bot import bot, app, dispatcher, updater, botStartTime, IGNORE_PENDING_REQUESTS, IS_VPS, PORT, alive, web, OWNER_ID, AUTHORIZED_CHATS, LOGGER, TIMEZONE, rss_session
 from bot.helper.ext_utils import fs_utils
 from bot.helper.telegram_helper.bot_commands import BotCommands
 from bot.helper.telegram_helper.message_utils import sendMessage, sendMarkup, editMessage, sendLogFile
@@ -233,18 +233,6 @@ def main():
             chat_id, msg_id = map(int, f)
         bot.edit_message_text("Restarted successfully!", chat_id, msg_id)
         os.remove(".restartmsg")
-    if LOG_GROUP is not None and isinstance(LOG_GROUP, str):
-
-        try:
-            now=datetime.now(pytz.timezone('Asia/Kolkata'))
-            current = now.strftime('%Y/%m/%d %I:%M:%P')
-            dispatcher.bot.sendMessage(f"{LOG_GROUP}", f"Bot {BOT_NO} Successfully Restarted\n\nTime : {current}")
-        except Unauthorized:
-            LOGGER.warning(
-                "Bot isnt able to send message to support_chat, go and check!"
-            )
-        except BadRequest as e:
-            LOGGER.warning(e.message)
     elif OWNER_ID:
         try:
             kie = datetime.now(pytz.timezone(f'{TIMEZONE}'))

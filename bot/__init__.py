@@ -104,7 +104,7 @@ get_client().application.set_preferences({"add_trackers":f"{trackerslist}"})
 """
 
 DOWNLOAD_DIR = None
-BOT_NO = ""
+
 BOT_TOKEN = None
 
 download_dict_lock = threading.Lock()
@@ -148,15 +148,10 @@ try:
         SUDO_USERS.add(int(chats))
 except:
     pass
-try:
-    BOT_NO = getConfig('BOT_NO')
-except KeyError:
-    BOT_NO = ""
+
     
 try:
     BOT_TOKEN = getConfig('BOT_TOKEN')
-    LOG_GROUP = getConfig("LOG_GROUP")
-    DB_URI = getConfig('DATABASE_URL')
     parent_id = getConfig('GDRIVE_FOLDER_ID')
     DOWNLOAD_DIR = getConfig('DOWNLOAD_DIR')
     if not DOWNLOAD_DIR.endswith("/"):
@@ -166,22 +161,15 @@ try:
     AUTO_DELETE_MESSAGE_DURATION = int(getConfig('AUTO_DELETE_MESSAGE_DURATION'))
     TELEGRAM_API = getConfig('TELEGRAM_API')
     TELEGRAM_HASH = getConfig('TELEGRAM_HASH')
-    CHAT_NAME = getConfig('CHAT_NAME')
-    LOG_CHANNEL_ID = getConfig('LOG_CHANNEL_ID')
-    LOG_CHANNEL_LINK = getConfig('LOG_CHANNEL_LINK')
+    LOG_CHANNEL_ID = getConfig('LOG_CHANNEL')
+    LOG_CHANNEL_LINK = getConfig('LOG_UNAME')
 except KeyError as e:
     LOGGER.error("One or more env variables missing! Exiting now")
     exit(1)
 
-LOGGER.info("Generating USER_SESSION_STRING")
+LOGGER.info("Generating Bot_SESSION_STRING")
 app = Client('pyrogram', api_id=int(TELEGRAM_API), api_hash=TELEGRAM_HASH, bot_token=BOT_TOKEN, no_updates=True)
 
-#Generate Telegraph Token
-sname = ''.join(random.SystemRandom().choices(string.ascii_letters, k=8))
-LOGGER.info("Generating TELEGRAPH_TOKEN using '" + sname + "' name")
-telegraph = Telegraph()
-telegraph.create_account(short_name=sname)
-telegraph_token = telegraph.get_access_token()
 
 try:
     USER_STRING_SESSION = getConfig('USER_STRING_SESSION')
@@ -218,28 +206,7 @@ try:
     if len(DB_URI) == 0:
         raise KeyError
 except KeyError:
-    logging.warning('Database not provided!')
     DB_URI = None
-if DB_URI is not None:
-    try:
-        conn = psycopg2.connect(DB_URI)
-        cur = conn.cursor()
-        sql = "SELECT * from users;"
-        cur.execute(sql)
-        rows = cur.fetchall()  #returns a list ==> (uid, sudo)
-        for row in rows:
-            AUTHORIZED_CHATS.add(row[0])
-            if row[1]:
-                SUDO_USERS.add(row[0])
-    except Error as e:
-        if 'relation "users" does not exist' in str(e):
-            mktable()
-        else:
-            LOGGER.error(e)
-            exit(1)
-    finally:
-        cur.close()
-        conn.close()
 try:
     TG_SPLIT_SIZE = getConfig('TG_SPLIT_SIZE')
     if len(TG_SPLIT_SIZE) == 0 or int(TG_SPLIT_SIZE) > 2097151000:
