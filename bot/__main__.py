@@ -28,7 +28,7 @@ from .helper.telegram_helper.filters import CustomFilters
 from bot.helper.telegram_helper import button_build
 from .modules import authorize, list, cancel_mirror, mirror_status, mirror, clone, watch, shell, eval, delete, speedtest, count, leech_settings, search , rss
 
-now=datetime.now(pytz.timezone('Asia/Kolkata'))
+now=datetime.now(pytz.timezone('Asia/Dhaka'))
 
 def stats(update, context):
     global main
@@ -43,7 +43,7 @@ def stats(update, context):
     cpuUsage = psutil.cpu_percent(interval=0.5)
     memory = psutil.virtual_memory().percent
     disk = psutil.disk_usage('/').percent
-    stats = f'<b>〣 ━━ ωιzαя∂ χ мιяяσя ━━ 〣</b>\n\n' \
+    stats = f'<b>〣 ━━ Sito Cloud ━━ 〣</b>\n\n' \
             f'• ⌚Rᴜɴɴɪɴɢ Sɪɴᴄᴇ :-> {currentTime}\n' \
             f'• Sᴛᴀʀᴛᴇᴅ Aᴛ :-> {current}\n\n' \
             f'<b>• 🗄️DISK INFO :-> </b>\n' \
@@ -57,7 +57,7 @@ def stats(update, context):
             f'<b><i>CPU</i></b>: {cpuUsage}%\n' \
             f'<b><i>RAM</i></b>: {memory}%\n' \
             f'<b><i>DISK</i></b>: {disk}%\n' \
-            f'<b>〣 ━ мα∂є ωιтн ℓσνє ву αιѕнιк тσк∂αя ━ 〣</b>\n\n'
+            f'<b>〣 ━ мα∂є ωιтн ℓσνє ву @Sito_Mao from Sito Cloud ━ 〣</b>\n\n'
     keyboard = [[InlineKeyboardButton("CLOSE", callback_data="stats_close")]]
     main = sendMarkup(stats, context.bot, update, reply_markup=InlineKeyboardMarkup(keyboard))
 
@@ -80,7 +80,7 @@ def start(update, context):
             sendMessage(f"<b>I'm Awake Already!</b>\n<b>Haven't Slept Since:</b> <code>{uptime}</code>", context.bot, update)
     else :
         uname = f'<a href="tg://user?id={update.message.from_user.id}">{update.message.from_user.first_name}</a>'
-        sendMessage(f"<b>Hi {uname},</b>\n\n<b>If You Want To Use Me</b>\n\n<b>You Have To Join ɯιȥαɾԃ x ɱιɾɾσɾ</b>\n\n<b><i>NOTE : All The Uploaded Links Will Be Sent Here In Your Private Chat From Now</i></b>", context.bot, update)
+        sendMessage(f"<b>Hi {uname},</b>\n\n<b>If You Want To Use Me</b>\n\n<b>You Have To contact @sito_mao x ɱιɾɾσɾ</b>\n\n<b><i>NOTE : All The Uploaded Links Will Be Sent Here In Your Private Chat From Now</i></b>", context.bot, update)
         
 def restart(update, context):
     restart_message = sendMessage("Restarting...", context.bot, update)
@@ -168,7 +168,7 @@ help_string_telegraph = f'''<br>
 '''
 
 help = telegraph.create_page(
-        title='ɯιȥαɾԃ-x-ɱιɾɾσɾ Help',
+        title='Sito Cloud Help',
         content=help_string_telegraph,
     )["path"]
 
