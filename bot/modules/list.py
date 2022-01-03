@@ -51,7 +51,6 @@ def select_type(update, context):
         query.answer()
         editMessage("list has been canceled!", msg)
 
-
 def _list_drive(key, bmsg, list_method, item_type):
     LOGGER.info(f"listing: {key}")
     list_method = list_method == "recu"
@@ -61,7 +60,6 @@ def _list_drive(key, bmsg, list_method, item_type):
         editMessage(msg, bmsg, button)
     else:
         editMessage(f'No result found for <i>{key}</i>', bmsg)
-
 
 list_handler = CommandHandler(BotCommands.ListCommand, list_buttons, filters=CustomFilters.authorized_chat | CustomFilters.authorized_user, run_async=True)
 list_type_handler = CallbackQueryHandler(select_type, pattern="types", run_async=True)

@@ -22,6 +22,7 @@ pyshorteners
 python-dotenv
 python-magic
 python-telegram-bot
+gc-python-utils
 qbittorrent-api
 requests
 speedtest-cli
