@@ -46,7 +46,6 @@ def sendLog(text: str, bot, update: Update, reply_markup: InlineKeyboardMarkup):
                              text=text, disable_web_page_preview=True, reply_markup=reply_markup, allow_sending_without_reply=True, parse_mode='HTMl')
     except Exception as e:
         LOGGER.error(str(e))
-        return
 
 def sendPrivate(text: str, bot, update: Update, reply_markup: InlineKeyboardMarkup):
     bot_d = bot.get_me()
