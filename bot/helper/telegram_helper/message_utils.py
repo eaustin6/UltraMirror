@@ -38,36 +38,6 @@ def sendMarkup(text: str, bot, update: Update, reply_markup: InlineKeyboardMarku
         LOGGER.error(str(e))
         return
 
-<<<<<<< Updated upstream
-def sendLog(text: str, bot, update: Update, reply_markup: InlineKeyboardMarkup):
-    try:
-        return bot.send_message(f"{LOG_CHANNEL_ID}",
-                             reply_to_message_id=update.message.message_id,
-                             text=text, disable_web_page_preview=True, reply_markup=reply_markup, allow_sending_without_reply=True, parse_mode='HTMl')
-    except Exception as e:
-        LOGGER.error(str(e))
-
-def sendPrivate(text: str, bot, update: Update, reply_markup: InlineKeyboardMarkup):
-    bot_d = bot.get_me()
-    b_uname = bot_d.username
-    
-    try:
-        return bot.send_message(update.message.from_user.id,
-                             reply_to_message_id=update.message.message_id,
-                             text=text, disable_web_page_preview=True, reply_markup=reply_markup, allow_sending_without_reply=True, parse_mode='HTMl')
-    except Exception as e:
-        LOGGER.error(str(e))
-        if "Forbidden" in str(e):
-            uname = f'<a href="tg://user?id={update.message.from_user.id}">{update.message.from_user.first_name}</a>'
-            botstart = f"http://t.me/{b_uname}?start=start"
-            keyboard = [
-            [InlineKeyboardButton("𝐒𝐓𝐀𝐑𝐓 𝐌𝐄", url = f"{botstart}")],
-            [InlineKeyboardButton("𝐉𝐎𝐈𝐍 𝐇𝐄𝐑𝐄", url = f"{LOG_CHANNEL_LINK}")]]
-            sendMarkup(f"𝙳𝙴𝙰𝚁 {uname},\n\n<b>ɪ ғᴏᴜɴᴅ ᴛʜᴀᴛ ʏᴏᴜ ʜᴀᴠᴇɴ'ᴛ sᴛᴀʀᴛᴇᴅ ᴍᴇ ɪɴ ᴘᴍ (ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀᴛ) ʏᴇᴛ.</b>\n\n𝐅𝐑𝐎𝐌 𝐍𝐎𝐖 𝐎𝐍 𝐈 𝐖𝐈𝐋𝐋 𝐆𝐈𝐕𝐄 𝐋𝐈𝐍𝐊 𝐈𝐍 𝐏𝐌 (𝐏𝐑𝐈𝐕𝐀𝐓𝐄 𝐂𝐇𝐀𝐓) 𝐀𝐍𝐃 𝐋𝐎𝐆 𝐂𝐇𝐀𝐍𝐍𝐄𝐋 𝐎𝐍𝐋𝐘", bot, update, reply_markup=InlineKeyboardMarkup(keyboard))
-            return
-
-=======
->>>>>>> Stashed changes
 def editMessage(text: str, message: Message, reply_markup=None):
     try:
         bot.edit_message_text(text=text, message_id=message.message_id,
