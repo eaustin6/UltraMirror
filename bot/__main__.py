@@ -238,7 +238,7 @@ def main():
         try:
             kie = datetime.now(pytz.timezone(f'{TIMEZONE}'))
             jam = kie.strftime('\n📅 𝘿𝘼𝙏𝙀: %d/%m/%Y\n⏲️ 𝙏𝙄𝙈𝙀: %I:%M%P')
-            text = f"*🤖 BOT Rebooted 🔄*\n*{jam}*\n\n*♻️ 𝐁𝐎𝐓 𝐆𝐎𝐓 𝐑𝐄𝐒𝐓𝐀𝐑𝐓𝐄𝐃*\n\n𝗖𝗼𝘂𝗿𝘁𝗲𝘀𝘆 𝗼𝗳 ɯιȥαɾԃ 𝘅 ɱιɾɾσɾ\n\n*#Rebooted*"
+            text = f"* BOT Rebooted �*\n*{jam}*\n\n*♻️ 𝐁𝐎𝐓 𝐆𝐎𝐓 𝐑𝐄𝐒𝐓𝐀𝐑𝐓𝐄𝐃*\n\n𝗖𝗼𝘂𝗿𝘁𝗲𝘀𝘆 𝗼𝗳 ɯιȥαɾԃ 𝘅 ɱιɾɾσɾ\n\n*#Rebooted*"
             bot.sendMessage(chat_id=AUTHORIZED_CHATS, text=text, parse_mode="markdown")
             if AUTHORIZED_CHATS:
                 for i in AUTHORIZED_CHATS:
