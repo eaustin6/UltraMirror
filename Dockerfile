@@ -1,4 +1,3 @@
-FROM fiction7799/herofic:latest
 FROM anasty17/mltb:latest
 
 WORKDIR /usr/src/app
