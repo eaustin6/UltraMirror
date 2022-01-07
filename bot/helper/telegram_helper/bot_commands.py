@@ -6,7 +6,7 @@ class _BotCommands:
         self.ZipMirrorCommand = 'rsszipmirror'
         self.CancelMirror = 'rsscancel'
         self.CancelAllCommand = 'rsscancelall'
-        self.ListCommand = 'rsslist'
+        self.ListCommand = 'rsslistgd'
         self.SearchCommand = 'rsssearch'
         self.StatusCommand = 'rssstatus'
         self.AuthorizedUsersCommand = 'rssusers'
