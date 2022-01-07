@@ -26,7 +26,6 @@ from bot.helper.mirror_utils.download_utils.gd_downloader import add_gd_download
 from bot.helper.mirror_utils.download_utils.qbit_downloader import add_qb_torrent
 from bot.helper.mirror_utils.download_utils.direct_link_generator import direct_link_generator
 from bot.helper.mirror_utils.download_utils.telegram_downloader import TelegramDownloadHelper
-from bot.helper.mirror_utils.status_utils import listeners
 from bot.helper.mirror_utils.status_utils.extract_status import ExtractStatus
 from bot.helper.mirror_utils.status_utils.zip_status import ZipStatus
 from bot.helper.mirror_utils.status_utils.split_status import SplitStatus
@@ -39,21 +38,18 @@ from bot.helper.telegram_helper.message_utils import sendMessage, sendMarkup, de
 from bot.helper.telegram_helper.message_utils import *
 from bot.helper.telegram_helper import button_build
 
-class MirrorListener(listeners.MirrorListeners):
-    def __init__(self, bot, update, isZip=False, extract=False, isQbit=False, isLeech=False, pswd=None):
-        super().__init__(bot, update)
+class MirrorListener:
+    def __init__(self, bot, update, isZip=False, extract=False, isQbit=False, isLeech=False, pswd=None, tag=None):
+        self.bot = bot
+        self.update = update
+        self.message = update.message
+        self.uid = self.message.message_id
         self.extract = extract
         self.isZip = isZip
         self.isQbit = isQbit
         self.isLeech = isLeech
         self.pswd = pswd
-
-    def onDownloadStarted(self):
-        pass
-
-    def onDownloadProgress(self):
-        # We are handling this on our own!
-        pass
+        self.tag = tag
 
     def clean(self):
         try:
@@ -201,12 +197,6 @@ class MirrorListener(listeners.MirrorListeners):
         else:
             update_all_messages()
 
-    def onUploadStarted(self):
-        pass
-
-    def onUploadProgress(self):
-        pass
-
     def onUploadComplete(self, link: str, size, files, folders, typ):
         if self.isLeech:
             if self.isQbit and QB_SEED:
@@ -294,8 +284,7 @@ class MirrorListener(listeners.MirrorListeners):
                 fwdpm = f'\n\n𝐘𝐨𝐮 𝐂𝐚𝐧 𝐅𝐢𝐧𝐝 𝐔𝐩𝐥𝐨𝐚𝐝 𝐈𝐧 𝐏𝐫𝐢𝐯𝐚𝐭𝐞 𝐂𝐡𝐚𝐭 𝐨𝐫 𝐂𝐥𝐢𝐜𝐤 𝐛𝐮𝐭𝐭𝐨𝐧 𝐛𝐞𝐥𝐨𝐰 𝐭𝐨 𝐒𝐞𝐞 𝐚𝐭 𝐥𝐨𝐠 𝐜𝐡𝐚𝐧𝐧𝐞𝐥'
         fwdpm = f'\n\n𝐘𝐨𝐮 𝐂𝐚𝐧 𝐅𝐢𝐧𝐝 𝐔𝐩𝐥𝐨𝐚𝐝 𝐈𝐧 𝐏𝐫𝐢𝐯𝐚𝐭𝐞 𝐂𝐡𝐚𝐭 𝐨𝐫 𝐂𝐥𝐢𝐜𝐤 𝐛𝐮𝐭𝐭𝐨𝐧 𝐛𝐞𝐥𝐨𝐰 𝐭𝐨 𝐒𝐞𝐞 𝐚𝐭 𝐥𝐨𝐠 𝐜𝐡𝐚𝐧𝐧𝐞𝐥'
 
-        logmsg = sendLog(msg + msg_g, self.bot, self.update, InlineKeyboardMarkup(buttons.build_menu(2)))
-
+        logmsg = sendLog (msg + msg_g, self.bot, self.update, InlineKeyboardMarkup(buttons.build_menu(2)))
         if logmsg:
             log_m = f"\n\n<b>Link Uploaded, Click Below Button👇</b>"
         else:
