@@ -22,6 +22,7 @@ from bot import bot, app, dispatcher, updater, botStartTime, IGNORE_PENDING_REQU
 from bot.helper.ext_utils import fs_utils
 from bot.helper.telegram_helper.bot_commands import BotCommands
 from bot.helper.telegram_helper.message_utils import sendMessage, sendMarkup, editMessage, sendLogFile
+from bot.helper.telegram_helper.message_utils import *
 from .helper.ext_utils.telegraph_helper import telegraph
 from .helper.ext_utils.bot_utils import get_readable_file_size, get_readable_time
 from .helper.telegram_helper.filters import CustomFilters
@@ -236,8 +237,8 @@ def main():
     elif OWNER_ID:
         try:
             kie = datetime.now(pytz.timezone(f'{TIMEZONE}'))
-            jam = kie.strftime('\n📅 Date: %d/%m/%Y\n⏰ Time: %I:%M%P\n🌃 TimeZone: Asia/Kolkata')
-            text = f"*🤖 BOT Rebooted 🔄*\n*{jam}*\n\n*ℹ️ Please Re-Download again if Any downloads got Canceled during Reboot*\n\n𝗖𝗼𝘂𝗿𝘁𝗲𝘀𝘆 𝗼𝗳 ɯιȥαɾԃ 𝘅 ɱιɾɾσɾ\n\n*#Rebooted*"
+            jam = kie.strftime('\n📅 𝘿𝘼𝙏𝙀: %d/%m/%Y\n⏲️ 𝙏𝙄𝙈𝙀: %I:%M%P')
+            text = f"* BOT Rebooted �*\n*{jam}*\n\n*♻️ 𝐁𝐎𝐓 𝐆𝐎𝐓 𝐑𝐄𝐒𝐓𝐀𝐑𝐓𝐄𝐃*\n\n𝗖𝗼𝘂𝗿𝘁𝗲𝘀𝘆 𝗼𝗳 ɯιȥαɾԃ 𝘅 ɱιɾɾσɾ\n\n*#Rebooted*"
             bot.sendMessage(chat_id=AUTHORIZED_CHATS, text=text, parse_mode="markdown")
             if AUTHORIZED_CHATS:
                 for i in AUTHORIZED_CHATS:

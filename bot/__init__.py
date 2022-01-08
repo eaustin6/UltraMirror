@@ -50,7 +50,7 @@ try:
         else:
             logging.error(f"Failed to download .netrc {res.status_code}")
     except Exception as e:
-        logging.error(str(e))
+        logging.error(f"NETRC_URL: {e}")
 except KeyError:
     pass
 try:
@@ -161,8 +161,8 @@ try:
     AUTO_DELETE_MESSAGE_DURATION = int(getConfig('AUTO_DELETE_MESSAGE_DURATION'))
     TELEGRAM_API = getConfig('TELEGRAM_API')
     TELEGRAM_HASH = getConfig('TELEGRAM_HASH')
-    LOG_CHANNEL_ID = getConfig('LOG_CHANNEL')
-    LOG_CHANNEL_LINK = getConfig('LOG_UNAME')
+    LOG_CHANNEL_ID = getConfig('LOG_CHANNEL_ID')
+    LOG_CHANNEL_LINK = getConfig('LOG_CHANNEL_LINK')
 except KeyError as e:
     LOGGER.error("One or more env variables missing! Exiting now")
     exit(1)
@@ -179,7 +179,7 @@ except KeyError:
     USER_STRING_SESSION = None
 
 if USER_STRING_SESSION is not None:
-    rss_session = Client(USER_STRING_SESSION, api_id=int(TELEGRAM_API), api_hash=TELEGRAM_HASH, no_updates=True)
+    rss_session = Client(USER_STRING_SESSION, api_id=int(TELEGRAM_API), api_hash=TELEGRAM_HASH)
 else:
     rss_session = None
 
@@ -440,7 +440,7 @@ try:
         else:
             logging.error(f"Failed to download token.pickle, link got HTTP response: {res.status_code}")
     except Exception as e:
-        logging.error(str(e))
+        logging.error(f"TOKEN_PICKLE_URL: {e}")
 except KeyError:
     pass
 try:
@@ -457,7 +457,7 @@ try:
             else:
                 logging.error(f"Failed to download accounts.zip, link got HTTP response: {res.status_code}")
         except Exception as e:
-            logging.error(str(e))
+            logging.error(f"ACCOUNTS_ZIP_URL: {e}")
             raise KeyError
         subprocess.run(["unzip", "-q", "-o", "accounts.zip"])
         os.remove("accounts.zip")
@@ -476,7 +476,7 @@ try:
         else:
             logging.error(f"Failed to download drive_folder, link got HTTP response: {res.status_code}")
     except Exception as e:
-        logging.error(str(e))
+        logging.error(f"MULTI_SEARCH_URL: {e}")
 except KeyError:
     pass
 try:
@@ -492,7 +492,7 @@ try:
         else:
             logging.error(f"Failed to download cookies.txt, link got HTTP response: {res.status_code}")
     except Exception as e:
-        logging.error(str(e))
+        logging.error(f"YT_COOKIES_URL: {e}")
 except KeyError:
     pass
 

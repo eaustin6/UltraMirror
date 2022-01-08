@@ -36,8 +36,7 @@ def cloneNode(update, context):
         gd = gdriveTools.GoogleDriveHelper()
         res, size, name, files = gd.helper(link)
         if res != "":
-            sendMessage(res, context.bot, update)
-            return
+            return sendMessage(res, context.bot, update)
         if STOP_DUPLICATE:
             LOGGER.info('Checking File/Folder if already in Drive...')
             smsg, button = gd.drive_list(name, True, True)
@@ -51,8 +50,7 @@ def cloneNode(update, context):
             LOGGER.info('Checking File/Folder Size...')
             if size > CLONE_LIMIT * 1024**3:
                 msg2 = f'Failed, Clone limit is {CLONE_LIMIT}GB.\nYour File/Folder size is {get_readable_file_size(size)}.'
-                sendMessage(msg2, context.bot, update)
-                return
+                return sendMessage(msg2, context.bot, update)
         if files <= 10:
             msg = sendMessage(f"Cloning: <code>{link}</code>", context.bot, update)
             result, button = gd.clone(link)

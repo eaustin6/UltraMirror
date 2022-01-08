@@ -5,7 +5,6 @@ import logging
 import re
 import threading
 
-from .download_helper import DownloadHelper
 from yt_dlp import YoutubeDL, DownloadError
 from bot import download_dict_lock, download_dict
 from bot.helper.telegram_helper.message_utils import sendStatusMessage
@@ -38,18 +37,18 @@ class MyLogger:
             LOGGER.error(msg)
 
 
-class YoutubeDLHelper(DownloadHelper):
+class YoutubeDLHelper:
     def __init__(self, listener):
-        super().__init__()
         self.name = ""
+        self.size = 0
+        self.progress = 0
+        self.downloaded_bytes = 0
+        self.is_playlist = False
+        self._last_downloaded = 0
         self.__start_time = time.time()
         self.__listener = listener
         self.__gid = ""
         self.__download_speed = 0
-        self.downloaded_bytes = 0
-        self.size = 0
-        self.is_playlist = False
-        self._last_downloaded = 0
         self.__is_cancelled = False
         self.__downloading = False
         self.__resource_lock = threading.RLock()
@@ -155,7 +154,7 @@ class YoutubeDLHelper(DownloadHelper):
                 raise ValueError
             self.__onDownloadComplete()
         except ValueError:
-            pass
+            self.onDownloadError("Download Stopped by User!")
 
     def add_download(self, link, path, name, qual, playlist):
         if playlist:
@@ -188,5 +187,3 @@ class YoutubeDLHelper(DownloadHelper):
         LOGGER.info(f"Cancelling Download: {self.name}")
         if not self.__downloading:
             self.onDownloadError("Download Cancelled by User!")
-        else:
-            self.onDownloadError("Download Stopped by User!")
